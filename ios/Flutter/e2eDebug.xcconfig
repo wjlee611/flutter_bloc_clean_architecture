@@ -1,0 +1,7 @@
+#include? "Pods/Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"
+#include "Generated.xcconfig"
+
+FLUTTER_TARGET=lib/main_e2e.dart
+ASSET_PREFIX=e2e
+BUNDLE_NAME=FCAB TEST
+BUNDLE_DISPLAY_NAME=FCAB TEST

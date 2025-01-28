@@ -2,7 +2,7 @@ name: flutter_bloc_clean_architecture
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -45,13 +45,13 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
+  flutter_flavorizr: ^2.2.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter packages.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
@@ -87,3 +87,61 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/to/font-from-package
+
+flavorizr:
+  flavors:
+    dev:
+      app:
+        name: "FCAB dev"
+      android:
+        applicationId: "dev.io.github.wjlee611.fcab.android"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "android/firebase/dev/google-services.json"
+      ios:
+        bundleId: "dev.io.github.wjlee611.fcab.ios"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "ios/firebase/dev/GoogleService-Info.plist"
+
+    qa:
+      app:
+        name: "FCAB QA"
+      android:
+        applicationId: "qa.io.github.wjlee611.fcab.android"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "android/firebase/dev/google-services.json"
+      ios:
+        bundleId: "qa.io.github.wjlee611.fcab.ios"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "ios/firebase/dev/GoogleService-Info.plist"
+
+    e2e:
+      app:
+        name: "FCAB TEST"
+      android:
+        applicationId: "e2e.io.github.wjlee611.fcab.android"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "android/firebase/dev/google-services.json"
+      ios:
+        bundleId: "e2e.io.github.wjlee611.fcab.ios"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "ios/firebase/dev/GoogleService-Info.plist"
+
+    prod:
+      app:
+        name: "FCAB"
+      android:
+        applicationId: "io.github.wjlee611.fcab.android"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "android/firebase/prod/google-services.json"
+      ios:
+        bundleId: "io.github.wjlee611.fcab.ios"
+        # icon: "assets/images/icon.png"
+        # firebase:
+        #   config: "ios/firebase/prod/GoogleService-Info.plist"
