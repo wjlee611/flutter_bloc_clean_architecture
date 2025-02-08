@@ -5,7 +5,10 @@ import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc_clean_architecture/core/router/page_transition.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/home_page.dart';
+import 'package:flutter_bloc_clean_architecture/layer/presentation/signin/bloc/signin_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/signin/signin_page.dart';
+import 'package:flutter_bloc_clean_architecture/layer/presentation/signup/bloc/signup_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/layer/presentation/signup/signup_page.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/splash/bloc/splash_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/splash/splash_page.dart';
 import 'package:go_router/go_router.dart';
@@ -16,6 +19,7 @@ class AppRouter {
   // =============================
   static const String root = '/';
   static const String signin = '/signin';
+  static const String signup = '/signup';
   static const String home = '/home';
 
   // =============================
@@ -43,14 +47,17 @@ class AppRouter {
       refreshListenable: AuthBlocSingleton.instance,
       redirect: (context, state) {
         final authState = AuthBlocSingleton.instance.state;
-        final blockPageInAuthenticated = [root, signin];
+        final whitePageInUnAuthenticated = [signin, signup];
+        final blockPageInAuthenticated = [root, signin, signup];
 
         if (authState is AuthInitState) {
           return root;
         }
 
         if (authState is AuthUnAuthenticatedState) {
-          return signin;
+          return whitePageInUnAuthenticated.contains(state.uri.toString())
+              ? state.uri.toString()
+              : signin;
         }
 
         if (authState is AuthAuthenticatedState) {
@@ -78,7 +85,24 @@ class AppRouter {
           path: signin,
           pageBuilder: (context, state) => PageTransition.cupertino(
             state: state,
-            child: SigninPage(),
+            child: BlocProvider(
+              create: (context) => SigninBloc(
+                userRepository: context.read<UserRepository>(),
+              ),
+              child: SigninPage(),
+            ),
+          ),
+        ),
+        GoRoute(
+          path: signup,
+          pageBuilder: (context, state) => PageTransition.cupertino(
+            state: state,
+            child: BlocProvider(
+              create: (context) => SignupBloc(
+                userRepository: context.read<UserRepository>(),
+              ),
+              child: SignupPage(),
+            ),
           ),
         ),
         GoRoute(

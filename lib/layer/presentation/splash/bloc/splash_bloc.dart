@@ -38,11 +38,12 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   ) async {
     emit(SplashGetUserState());
 
-    _tempUser = await _userRepository.getUser();
-    if (_tempUser == null) {
+    final res = await _userRepository.getUser();
+    if (res.code != 200) {
       AuthBlocSingleton.instance.add(AuthSignoutEvent());
       return;
     }
+    _tempUser = res.data;
 
     add(SplashLoadOtherEvent());
   }
