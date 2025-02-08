@@ -1,23 +1,53 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-import 'flavors.dart';
-import 'pages/my_home_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_bloc_singleton.dart';
+import 'package:flutter_bloc_clean_architecture/core/constant/sizes.dart';
+import 'package:flutter_bloc_clean_architecture/core/router/app_router.dart';
+import 'package:flutter_bloc_clean_architecture/flavors.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/repository_impl/user_repository_impl.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/source/secure_storage_impl.dart';
+import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class App extends StatelessWidget {
-
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: F.title,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: _flavorBanner(
-        child: MyHomePage(),
-        show: kDebugMode,
+    return MultiRepositoryProvider(
+      providers: [
+        RepositoryProvider<UserRepository>(
+          create: (context) => UserRepositoryImpl(
+            secureStorage: SecureStorageImpl(
+              storage: FlutterSecureStorage(),
+            ),
+          ),
+        ),
+      ],
+      child: Builder(
+        builder: (context) {
+          // Singleton Initialization
+          AuthBlocSingleton.initialize(
+            userRepository: context.read<UserRepository>(),
+          );
+          // Because it uses [AuthBlocSingleton] internally,
+          // its initialization must be later than [AuthBlocSingleton].
+          AppRouter.initialize();
+          // Build routes
+          return MaterialApp.router(
+            routerConfig: AppRouter.instance.router,
+            debugShowCheckedModeBanner: false,
+            title: F.title,
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            builder: (context, child) => _flavorBanner(
+              child: child ?? SizedBox(),
+              show: kDebugMode,
+            ),
+          );
+        },
       ),
     );
   }
@@ -25,20 +55,23 @@ class App extends StatelessWidget {
   Widget _flavorBanner({
     required Widget child,
     bool show = true,
-  }) =>
-      show
-          ? Banner(
-        child: child,
+  }) {
+    if (show) {
+      return Banner(
         location: BannerLocation.topStart,
         message: F.name,
-        color: Colors.green.withOpacity(0.6),
-        textStyle: TextStyle(
-            fontWeight: FontWeight.w700,
-            fontSize: 12.0,
-            letterSpacing: 1.0),
+        color: Colors.green.withAlpha(150),
+        textStyle: const TextStyle(
+          fontWeight: FontWeight.w700,
+          fontSize: Sizes.size12,
+          letterSpacing: Sizes.size1,
+        ),
         textDirection: TextDirection.ltr,
-      )
-          : Container(
         child: child,
       );
+    }
+    return Container(
+      child: child,
+    );
+  }
 }
