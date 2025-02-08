@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_clean_architecture/layer/data/source/secure_storage.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/source/local/secure_storage.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/model/base_response_model.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
 import 'package:flutter_bloc_clean_architecture/open_api/lib/openapi.dart';
@@ -49,15 +49,16 @@ class UserRepositoryMockImpl implements UserRepository {
     required String password,
   }) async {
     await Future.delayed(Duration(seconds: 1));
+    final username = email.split('@')[0];
     return BaseResponseModel(
       code: 200,
       data: User(
-        username: 'woong',
-        email: 'woong@email.com',
-        bio: 'woong\'s bio',
+        username: username,
+        email: '$username@email.com',
+        bio: '$username\'s bio',
         image:
             'https://raw.githubusercontent.com/flutter/website/master/src/_assets/image/flutter-logomark-320px.png',
-        token: 'woong',
+        token: username,
       ),
     );
   }

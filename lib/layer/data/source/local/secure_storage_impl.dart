@@ -1,4 +1,4 @@
-import 'package:flutter_bloc_clean_architecture/layer/data/source/secure_storage.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/source/local/secure_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SecureStorageImpl implements SecureStorage {

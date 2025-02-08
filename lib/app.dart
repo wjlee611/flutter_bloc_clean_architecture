@@ -7,7 +7,7 @@ import 'package:flutter_bloc_clean_architecture/core/router/app_router.dart';
 import 'package:flutter_bloc_clean_architecture/flavors.dart';
 import 'package:flutter_bloc_clean_architecture/layer/data/repository_impl/user_repository_impl.dart';
 import 'package:flutter_bloc_clean_architecture/layer/data/repository_impl/user_repository_mock_impl.dart';
-import 'package:flutter_bloc_clean_architecture/layer/data/source/secure_storage_impl.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/source/local/secure_storage_impl.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

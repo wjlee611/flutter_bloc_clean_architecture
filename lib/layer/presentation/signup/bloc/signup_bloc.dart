@@ -77,7 +77,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       password: _passwordController.text,
     );
 
-    if (res.code != 200) {
+    if (300 <= res.code) {
       emit(SignupState(
         status: ELoadingStatus.error,
         message: res.message ?? 'Sign up failed [${res.code}]',

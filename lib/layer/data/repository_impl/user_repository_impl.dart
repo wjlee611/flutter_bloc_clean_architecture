@@ -1,4 +1,5 @@
-import 'package:flutter_bloc_clean_architecture/layer/data/source/secure_storage.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/source/local/secure_storage.dart';
+import 'package:flutter_bloc_clean_architecture/layer/data/source/network/app_api.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/model/base_response_model.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
 import 'package:flutter_bloc_clean_architecture/open_api/lib/openapi.dart';
@@ -21,18 +22,40 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<BaseResponseModel<User>> getUser() {
-    // TODO: implement getUser
-    throw UnimplementedError();
+  Future<BaseResponseModel<User>> getUser() async {
+    final res = await AppApi.instance.swaggerApi((api) async {
+      return await api.getUserAndAuthenticationApi().getCurrentUser();
+    });
+    return BaseResponseModel(
+      code: res.statusCode ?? 500,
+      message: res.statusMessage,
+      data: res.data?.user,
+    );
   }
 
   @override
   Future<BaseResponseModel<User>> signin({
     required String email,
     required String password,
-  }) {
-    // TODO: implement signin
-    throw UnimplementedError();
+  }) async {
+    final res = await AppApi.instance.swaggerApi(
+      withAuth: false,
+      (api) async {
+        return await api.getUserAndAuthenticationApi().login(
+              body: LoginRequest(
+                user: LoginUser(
+                  email: email,
+                  password: password,
+                ),
+              ),
+            );
+      },
+    );
+    return BaseResponseModel(
+      code: res.statusCode ?? 500,
+      message: res.statusMessage,
+      data: res.data?.user,
+    );
   }
 
   @override
@@ -40,8 +63,25 @@ class UserRepositoryImpl implements UserRepository {
     required String email,
     required String password,
     required String username,
-  }) {
-    // TODO: implement signup
-    throw UnimplementedError();
+  }) async {
+    final res = await AppApi.instance.swaggerApi(
+      withAuth: false,
+      (api) async {
+        return await api.getUserAndAuthenticationApi().createUser(
+              body: CreateUserRequest(
+                user: NewUser(
+                  username: username,
+                  email: email,
+                  password: password,
+                ),
+              ),
+            );
+      },
+    );
+    return BaseResponseModel(
+      code: res.statusCode ?? 500,
+      message: res.statusMessage,
+      data: res.data?.user,
+    );
   }
 }

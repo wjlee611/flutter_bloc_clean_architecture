@@ -8,7 +8,6 @@ import 'package:equatable/src/equatable_utils.dart';
 
 part 'user.g.dart';
 
-
 @JsonSerializable(
   checked: true,
   createToJson: true,
@@ -18,110 +17,79 @@ part 'user.g.dart';
 class User {
   /// Returns a new [User] instance.
   User({
-
-    required  this.email,
-
-    required  this.token,
-
-    required  this.username,
-
-    required  this.bio,
-
-    required  this.image,
+    required this.email,
+    required this.token,
+    required this.username,
+    this.bio,
+    this.image,
   });
 
   @JsonKey(
-    
     name: r'email',
     required: true,
     includeIfNull: false,
   )
-
-
   final String email;
 
-
-
   @JsonKey(
-    
     name: r'token',
     required: true,
     includeIfNull: false,
   )
-
-
   final String token;
 
-
-
   @JsonKey(
-    
     name: r'username',
     required: true,
     includeIfNull: false,
   )
-
-
   final String username;
 
-
-
   @JsonKey(
-    
     name: r'bio',
-    required: true,
+    required: false,
     includeIfNull: false,
   )
-
-
-  final String bio;
-
-
+  final String? bio;
 
   @JsonKey(
-    
     name: r'image',
-    required: true,
+    required: false,
     includeIfNull: false,
   )
+  final String? image;
 
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is User &&
+            runtimeType == other.runtimeType &&
+            equals([
+              email,
+              token,
+              username,
+              bio,
+              image,
+            ], [
+              other.email,
+              other.token,
+              other.username,
+              other.bio,
+              other.image,
+            ]);
+  }
 
-  final String image;
-
-
-
-
-    bool operator ==(Object other) {
-      return identical(this, other) ||
-      other is User &&
-      runtimeType == other.runtimeType &&
-      equals(
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^
+      mapPropsToHashCode(
         [
-            email,
-            token,
-            username,
-            bio,
-            image,
+          email,
+          token,
+          username,
+          bio,
+          image,
         ],
-        [
-            other.email,
-            other.token,
-            other.username,
-            other.bio,
-            other.image,
-        ]
       );
-    }
-
-
-    @override
-    int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode([
-        email,
-        token,
-        username,
-        bio,
-        image,
-    ],);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
@@ -131,6 +99,4 @@ class User {
   String toString() {
     return toJson().toString();
   }
-
 }
-
