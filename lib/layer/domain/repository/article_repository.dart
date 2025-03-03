@@ -6,9 +6,13 @@ abstract class ArticleRepository {
     String? tag,
     String? author,
     String? favorited,
-    int? limit,
-    int? offset,
+    required int limit,
+    required int offset,
   });
 
   Future<BaseResponseModel<Article>> getArticle(String slug);
+
+  Future<BaseResponseModel<Article>> favoriteArticle(String slug);
+
+  Future<BaseResponseModel<Article>> unFavoriteArticle(String slug);
 }

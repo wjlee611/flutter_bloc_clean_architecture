@@ -96,11 +96,9 @@ class AppApi {
     // DioException is an exception class provided by the Dio package.
     on DioException catch (e) {
       // TODO: Modifications are required to match the server response format.
-      print(e);
       final errorCode =
           e.message?.split('status code of').last.split(' ')[1] ?? '500';
       final err = e.response?.data as Map<String, dynamic>;
-      print(err);
       final errRes = BaseResponseModel(
         code: int.parse(errorCode),
         message: err['errors']['body'].toString(),
