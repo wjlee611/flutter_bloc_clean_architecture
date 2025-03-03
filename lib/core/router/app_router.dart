@@ -3,7 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_bloc_singleton.dart';
 import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc_clean_architecture/core/router/page_transition.dart';
+import 'package:flutter_bloc_clean_architecture/layer/domain/repository/article_repository.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
+import 'package:flutter_bloc_clean_architecture/layer/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/home_page.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/signin/bloc/signin_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/signin/signin_page.dart';
@@ -109,7 +111,12 @@ class AppRouter {
           path: home,
           pageBuilder: (context, state) => PageTransition.cupertino(
             state: state,
-            child: HomePage(),
+            child: BlocProvider(
+              create: (context) => HomeBloc(
+                articleRepository: context.read<ArticleRepository>(),
+              ),
+              child: HomePage(),
+            ),
           ),
         ),
       ],
