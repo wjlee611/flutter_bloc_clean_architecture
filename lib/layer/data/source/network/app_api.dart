@@ -91,9 +91,7 @@ class AppApi {
     bool withRetry = false,
   }) async {
     try {
-      final res = await cb(withAuth ? _apiWithAuth : _apiWithUnAuth);
-      print(res);
-      return res;
+      return await cb(withAuth ? _apiWithAuth : _apiWithUnAuth);
     }
     // DioException is an exception class provided by the Dio package.
     on DioException catch (e) {

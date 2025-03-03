@@ -30,4 +30,18 @@ class ArticleRepositoryImpl implements ArticleRepository {
           <Article>[],
     );
   }
+
+  @override
+  Future<BaseResponseModel<Article>> getArticle(String slug) async {
+    final res = await AppApi.instance.swaggerApi((api) async {
+      return await api.getArticlesApi().getArticle(
+            slug: slug,
+          );
+    });
+    return BaseResponseModel(
+      code: res.statusCode ?? 500,
+      message: res.statusMessage,
+      data: res.data?.article,
+    );
+  }
 }

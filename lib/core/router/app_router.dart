@@ -5,6 +5,8 @@ import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc_clean_architecture/core/router/page_transition.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/article_repository.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
+import 'package:flutter_bloc_clean_architecture/layer/presentation/home/article/%5Bslug%5D/article_page.dart';
+import 'package:flutter_bloc_clean_architecture/layer/presentation/home/article/%5Bslug%5D/bloc/article_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/bloc/home_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/home_page.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/signin/bloc/signin_bloc.dart';
@@ -13,6 +15,7 @@ import 'package:flutter_bloc_clean_architecture/layer/presentation/signup/bloc/s
 import 'package:flutter_bloc_clean_architecture/layer/presentation/signup/signup_page.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/splash/bloc/splash_bloc.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/splash/splash_page.dart';
+import 'package:flutter_bloc_clean_architecture/open_api/lib/openapi.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
@@ -23,6 +26,14 @@ class AppRouter {
   static const String signin = '/signin';
   static const String signup = '/signup';
   static const String home = '/home';
+
+  /// ### Required
+  /// path parameter: slug \
+  /// example "${AppRouter.home}/${AppRouter.homeSubArticle}/slug-example"
+  ///
+  /// ### Optional
+  /// extra: Article
+  static const String homeSubArticle = 'article';
 
   // =============================
   // MARK: Instantiate
@@ -118,6 +129,23 @@ class AppRouter {
               child: HomePage(),
             ),
           ),
+          routes: [
+            GoRoute(
+              parentNavigatorKey: _rootNavigatorKey,
+              path: '$homeSubArticle/:slug',
+              pageBuilder: (context, state) => PageTransition.cupertino(
+                state: state,
+                child: BlocProvider(
+                  create: (context) => ArticleBloc(
+                    slug: state.pathParameters['slug']!,
+                    articleRepository: context.read<ArticleRepository>(),
+                    article: state.extra as Article?,
+                  ),
+                  child: ArticlePage(),
+                ),
+              ),
+            ),
+          ],
         ),
       ],
     );

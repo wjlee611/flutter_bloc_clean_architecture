@@ -9,4 +9,6 @@ abstract class ArticleRepository {
     int? limit,
     int? offset,
   });
+
+  Future<BaseResponseModel<Article>> getArticle(String slug);
 }

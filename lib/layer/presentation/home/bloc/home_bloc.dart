@@ -32,8 +32,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       offset: state.page,
     );
 
-    print(res);
-
     if (res.code != 200) {
       emit(state.copyWith(
         status: ELoadingStatus.error,
