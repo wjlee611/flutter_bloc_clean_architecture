@@ -1,0 +1,50 @@
+name: Main Workflow
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  ci-testing:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+        with:
+          path: code
+
+      - name: 🐦 Get Project Flutter Version
+        id: get-project-flutter-version
+        run: |
+          # Read flutter version from file
+          FLUTTER_VERSION=$(cat code/.fvm/version | awk '{print $1}')
+          # export
+          echo "version=$FLUTTER_VERSION" >> $GITHUB_OUTPUT
+
+      - name: 🐦 Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ steps.get-project-flutter-version.outputs.version }}
+          cache: true
+          cache-key: "flutter-:os:-:channel:-:version:-:arch:-:hash:"
+          cache-path: "${{ runner.tool_cache }}/flutter/:channel:-:version:-:arch:"
+
+      - name: 🐦 Check Flutter Version
+        run: |
+          flutter config --no-analytics
+          flutter --version
+
+      - name: 📦 Install dependencies
+        working-directory: code
+        run: flutter pub get
+
+      - name: 🔍 Analyze project source
+        working-directory: code
+        run: flutter analyze lib test
+
+      - name: 🧪 Run tests
+        working-directory: code
+        run: flutter test
