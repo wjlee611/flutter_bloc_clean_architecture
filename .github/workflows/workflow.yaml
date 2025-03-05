@@ -49,7 +49,7 @@ jobs:
 
           # Extract directly to the project root (current directory)
           # The -o flag forces overwrite if files already exist
-          unzip -o temp_secrets/secret.zip -d .
+          unzip -o temp_secrets/secret.zip -d code
 
           # Clean up temporary directory
           rm -rf temp_secrets
