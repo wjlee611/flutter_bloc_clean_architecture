@@ -86,4 +86,13 @@ class SigninBloc extends Bloc<SigninEvent, SigninState> {
     // Return to splash
     AuthBlocSingleton.instance.add(AuthInitEvent());
   }
+
+  @visibleForTesting
+  void setAccount({
+    String? email,
+    String? password,
+  }) {
+    _emailController.text = email ?? '';
+    _passwordController.text = password ?? '';
+  }
 }

@@ -14,9 +14,12 @@ class AuthBlocSingleton extends Bloc<AuthEvent, AuthState> with ChangeNotifier {
 
   static initialize({
     required UserRepository userRepository,
+    @visibleForTesting bool force = false,
   }) {
-    _instance ??= AuthBlocSingleton._();
-    _instance!._userRepository = userRepository;
+    if (_instance == null || force) {
+      _instance = AuthBlocSingleton._();
+      _instance!._userRepository = userRepository;
+    }
   }
 
   AuthBlocSingleton._() : super(AuthInitState()) {
@@ -78,5 +81,11 @@ class AuthBlocSingleton extends Bloc<AuthEvent, AuthState> with ChangeNotifier {
   ) async {
     if (state is! AuthAuthenticatedState) return;
     emit(AuthAuthenticatedState(user: event.user));
+  }
+
+  @visibleForTesting
+  void testForceSetState(AuthState state) {
+    // ignore: invalid_use_of_visible_for_testing_member
+    emit(state);
   }
 }

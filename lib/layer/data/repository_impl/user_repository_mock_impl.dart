@@ -6,25 +6,39 @@ import 'package:flutter_bloc_clean_architecture/open_api/lib/openapi.dart';
 class UserRepositoryMockImpl implements UserRepository {
   final SecureStorage _secureStorage;
 
+  final int? errorCode;
+  final int delayms;
+
   UserRepositoryMockImpl({
     required SecureStorage secureStorage,
+    this.errorCode,
+    this.delayms = 1000,
   }) : _secureStorage = secureStorage;
 
   @override
   Future<bool> saveToken({required String token}) async {
+    if (errorCode != null) return false;
+
     return await _secureStorage.saveToken(token: token);
   }
 
   @override
   Future<bool> removeToken() async {
+    if (errorCode != null) return false;
+
     return await _secureStorage.removeToken();
   }
 
   @override
   Future<BaseResponseModel<User>> getUser() async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: delayms));
+
+    if (errorCode != null) {
+      return BaseResponseModel(code: errorCode!, message: '$errorCode-error');
+    }
+
     final username = await _secureStorage.getToken();
-    if (username == null) {
+    if (username == null || username.isEmpty) {
       return BaseResponseModel(
         code: 404,
         message: "Failed to get user",
@@ -48,7 +62,12 @@ class UserRepositoryMockImpl implements UserRepository {
     required String email,
     required String password,
   }) async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: delayms));
+
+    if (errorCode != null) {
+      return BaseResponseModel(code: errorCode!, message: '$errorCode-error');
+    }
+
     final username = email.split('@')[0];
     return BaseResponseModel(
       code: 200,
@@ -69,7 +88,12 @@ class UserRepositoryMockImpl implements UserRepository {
     required String password,
     required String username,
   }) async {
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: delayms));
+
+    if (errorCode != null) {
+      return BaseResponseModel(code: errorCode!, message: '$errorCode-error');
+    }
+
     return BaseResponseModel(
       code: 200,
       data: User(

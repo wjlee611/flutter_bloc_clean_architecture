@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/article_repository.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/usecase/toggle_favorite.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/article/%5Bslug%5D/bloc/article_state.dart';
@@ -80,5 +81,11 @@ class ArticleBloc extends Bloc<ArticleEvent, ArticleState> {
       slug: state.slug,
       article: res.data!,
     ));
+  }
+
+  @visibleForTesting
+  void testForceSetState(ArticleState state) {
+    // ignore: invalid_use_of_visible_for_testing_member
+    emit(state);
   }
 }

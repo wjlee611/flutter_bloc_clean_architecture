@@ -6,6 +6,8 @@ void appSnackbar({
   Duration duration = const Duration(seconds: 2),
   SnackBarAction? action,
 }) {
+  if (!AppRouter.isInitialized) return;
+
   ScaffoldMessenger.of(AppRouter.instance.rootNavigatorKey.currentContext!)
       .showSnackBar(
     SnackBar(

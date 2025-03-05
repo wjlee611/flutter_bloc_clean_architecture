@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc_clean_architecture/enum/loading_status.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/repository/article_repository.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/usecase/toggle_favorite.dart';
@@ -79,5 +80,11 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       articles: state.articles + res.data!,
       page: state.page + 1,
     ));
+  }
+
+  @visibleForTesting
+  void testForceSetState(HomeState state) {
+    // ignore: invalid_use_of_visible_for_testing_member
+    emit(state);
   }
 }

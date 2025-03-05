@@ -41,6 +41,7 @@ class AppRouter {
   // =============================
   static AppRouter? _instance;
   static AppRouter get instance => _instance!;
+  static bool get isInitialized => _instance != null;
 
   // KEY
   final _rootNavigatorKey = GlobalKey<NavigatorState>();
