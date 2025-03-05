@@ -37,6 +37,23 @@ jobs:
           flutter config --no-analytics
           flutter --version
 
+      - name: 🔐 Setup Secrets
+        env:
+          SECRETS_ZIP: ${{ secrets.SECRETS_ZIP }}
+        run: |
+          # Create a temporary directory for the zip file
+          mkdir -p temp_secrets
+
+          # Decode the base64 content to a zip file
+          echo "$SECRETS_ZIP" | base64 --decode > temp_secrets/secret.zip
+
+          # Extract directly to the project root (current directory)
+          # The -o flag forces overwrite if files already exist
+          unzip -o temp_secrets/secret.zip -d .
+
+          # Clean up temporary directory
+          rm -rf temp_secrets
+
       - name: 📦 Install dependencies
         working-directory: code
         run: flutter pub get

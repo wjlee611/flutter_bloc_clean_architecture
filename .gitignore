@@ -46,6 +46,11 @@ app.*.map.json
 
 # FVM Version Cache
 .fvm/
+!.fvm/version
+
+# Secrets Archive
+secrets.zip
+secrets_base64.txt
 
 # Secrets
 lib/core/constant/networks.dart
