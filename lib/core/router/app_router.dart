@@ -50,15 +50,24 @@ class AppRouter {
   late GoRouter _router;
   GoRouter get router => _router;
 
-  static initialize() {
-    _instance ??= AppRouter._();
+  static initialize({
+    @visibleForTesting bool force = false,
+    @visibleForTesting String initialTestRoute = root,
+  }) {
+    if (_instance == null || force) {
+      _instance = AppRouter._(
+        initialTestRoute: initialTestRoute,
+      );
+    }
   }
 
-  AppRouter._() {
+  AppRouter._({
+    required String initialTestRoute,
+  }) {
     _router = GoRouter(
       debugLogDiagnostics: true,
       navigatorKey: _rootNavigatorKey,
-      initialLocation: root,
+      initialLocation: initialTestRoute,
       refreshListenable: AuthBlocSingleton.instance,
       redirect: (context, state) {
         final authState = AuthBlocSingleton.instance.state;

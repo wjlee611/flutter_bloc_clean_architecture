@@ -17,6 +17,7 @@ class HomePage extends StatelessWidget {
         title: Text('Home'),
         actions: [
           IconButton(
+            key: Key('signout-button'),
             onPressed: () {
               AuthBlocSingleton.instance.add(AuthSignoutEvent());
             },

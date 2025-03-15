@@ -32,8 +32,14 @@ class FavoriteButton extends StatelessWidget {
                 }
               },
               icon: state is FavoriteFavorState
-                  ? const Icon(Icons.favorite)
-                  : const Icon(Icons.favorite_border),
+                  ? Icon(
+                      key: Key('${article.slug}-favor'),
+                      Icons.favorite,
+                    )
+                  : Icon(
+                      key: Key('${article.slug}-unfavor'),
+                      Icons.favorite_border,
+                    ),
             );
           },
         ),

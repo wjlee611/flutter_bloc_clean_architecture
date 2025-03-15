@@ -46,7 +46,10 @@ class ArticleCard extends StatelessWidget {
                 ],
               ),
             ),
-            FavoriteButton(article: article),
+            FavoriteButton(
+              key: Key('${article.slug}-favorite-button'),
+              article: article,
+            ),
           ],
         ),
       ),

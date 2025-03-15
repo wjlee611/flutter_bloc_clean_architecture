@@ -34,12 +34,14 @@ class SigninPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppTextField(
+                        key: Key('email-field'),
                         controller: context.read<SigninBloc>().emailController,
                         title: 'Email',
                         textInputAction: TextInputAction.next,
                       ),
                       Gaps.v10,
                       AppTextField(
+                        key: Key('password-field'),
                         controller:
                             context.read<SigninBloc>().passwordController,
                         title: 'Password',
@@ -48,6 +50,7 @@ class SigninPage extends StatelessWidget {
                       Gaps.v20,
                       if (MediaQuery.viewInsetsOf(rootCtx).bottom <= 100)
                         GestureDetector(
+                          key: Key('create-account'),
                           onTapUp: (_) {
                             context.push(AppRouter.signup);
                           },
@@ -66,6 +69,7 @@ class SigninPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: AppButton(
+                  key: Key('signin-button'),
                   text: 'Sign in',
                   isLoading: state.status == ELoadingStatus.loading,
                   onTap: () {

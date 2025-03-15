@@ -31,6 +31,7 @@ class SignupPage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       AppTextField(
+                        key: Key('username-field'),
                         controller:
                             context.read<SignupBloc>().usernameController,
                         title: 'Username',
@@ -38,12 +39,14 @@ class SignupPage extends StatelessWidget {
                       ),
                       Gaps.v10,
                       AppTextField(
+                        key: Key('email-field'),
                         controller: context.read<SignupBloc>().emailController,
                         title: 'Email',
                         textInputAction: TextInputAction.next,
                       ),
                       Gaps.v10,
                       AppTextField(
+                        key: Key('password-field'),
                         controller:
                             context.read<SignupBloc>().passwordController,
                         title: 'Password',
@@ -56,6 +59,7 @@ class SignupPage extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: AppButton(
+                  key: Key('signup-button'),
                   text: 'Sign up',
                   isLoading: state.status == ELoadingStatus.loading,
                   onTap: () {
