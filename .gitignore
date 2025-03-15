@@ -49,6 +49,9 @@ app.*.map.json
 !.fvm/version
 
 # Secrets Archive
+# How to create?
+#❯ zip -r secrets.zip lib/core/constant/networks.dart
+#❯ base64 -i secrets.zip > secrets_base64.txt
 secrets.zip
 secrets_base64.txt
 

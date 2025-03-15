@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_bloc_singleton.dart';
 import 'package:flutter_bloc_clean_architecture/core/constant/sizes.dart';
 import 'package:flutter_bloc_clean_architecture/enum/loading_status.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/bloc/home_bloc.dart';
@@ -14,6 +15,14 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              AuthBlocSingleton.instance.add(AuthSignoutEvent());
+            },
+            icon: Icon(Icons.logout),
+          ),
+        ],
       ),
       body: SafeArea(
         child: BlocBuilder<HomeBloc, HomeState>(
