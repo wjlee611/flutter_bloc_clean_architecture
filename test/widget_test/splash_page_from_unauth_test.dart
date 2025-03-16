@@ -25,6 +25,8 @@ Future<void> splashFromUnAuthPageTest(
   WidgetTester widgetTester, {
   bool isE2E = false,
 }) async {
+  // MAGIC: Differences in behavior on AOS and iOS. (AOS does not catch the first build point)
+  // Therefore, the integration test skips that text checking process.
   if (!isE2E) {
     expect(find.text("Initializing..."), findsOneWidget);
     await widgetTester.pump();

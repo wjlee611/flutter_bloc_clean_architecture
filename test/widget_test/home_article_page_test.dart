@@ -47,6 +47,8 @@ Future<void> homeArticlePageTest(
   final slug1Unfavor = find.byKey(Key('1-slug-unfavor'));
 
   expect(find.text('Article'), findsOneWidget);
+  // In the integration test, the favorited are preloaded
+  // during the hydration process because there is initial data.
   if (!hasInitialData) {
     expect(find.byType(FavoriteButton), findsNothing);
   }

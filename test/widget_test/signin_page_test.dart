@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc_clean_architecture/core/router/app_router.dart';
@@ -53,7 +52,8 @@ Future<void> signinPageTest(WidgetTester widgetTester) async {
 
   await widgetTester.enterText(passwordFieldFinder, 'password');
   FocusManager.instance.primaryFocus?.unfocus();
-  await widgetTester.pumpAndSettle(Duration(seconds: 1));
+  await widgetTester
+      .pumpAndSettle(Duration(seconds: 1)); // Wait for dismiss keyboard
 
   await widgetTester.tap(createAccountFinder);
   await widgetTester.pumpAndSettle();

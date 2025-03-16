@@ -95,8 +95,8 @@ void main() {
         await Future.delayed(Duration(milliseconds: 50));
         toggleFavorite.call(article: article2, toFavorite: true);
       },
-      // [wait]: The duration of the waiting time between calling
-      // after the act function and checking the expect.
+      // [wait]: The duration of the waiting time between
+      // calling after the act function and checking the expect.
       wait: const Duration(milliseconds: 50),
       expect: () => [
         ArticleHydratedState(

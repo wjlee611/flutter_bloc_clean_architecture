@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc_clean_architecture/core/router/app_router.dart';
@@ -41,7 +40,9 @@ Future<void> signupPageTest(WidgetTester widgetTester) async {
   await widgetTester.pump(Duration(seconds: 2));
 
   await widgetTester.enterText(usernameFieldFinder, 'tester');
-  await widgetTester.pumpAndSettle();
+  FocusManager.instance.primaryFocus?.unfocus();
+  await widgetTester
+      .pumpAndSettle(Duration(seconds: 1)); // Wait for dismiss keyboard
 
   await widgetTester.tap(signupButtonFinder);
   await widgetTester.pumpAndSettle();
@@ -50,7 +51,9 @@ Future<void> signupPageTest(WidgetTester widgetTester) async {
   await widgetTester.pump(Duration(seconds: 2));
 
   await widgetTester.enterText(emailFieldFinder, 'tester@test.com');
-  await widgetTester.pumpAndSettle();
+  FocusManager.instance.primaryFocus?.unfocus();
+  await widgetTester
+      .pumpAndSettle(Duration(seconds: 1)); // Wait for dismiss keyboard
 
   await widgetTester.tap(signupButtonFinder);
   await widgetTester.pumpAndSettle();
@@ -59,7 +62,9 @@ Future<void> signupPageTest(WidgetTester widgetTester) async {
   await widgetTester.pump(Duration(seconds: 2));
 
   await widgetTester.enterText(passwordFieldFinder, 'password');
-  await widgetTester.pumpAndSettle();
+  FocusManager.instance.primaryFocus?.unfocus();
+  await widgetTester
+      .pumpAndSettle(Duration(seconds: 1)); // Wait for dismiss keyboard
 
   await widgetTester.tap(signupButtonFinder);
   await widgetTester.pump(Duration(seconds: 1)); // Signin button loading
