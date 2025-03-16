@@ -26,9 +26,13 @@ class FavoriteButton extends StatelessWidget {
             return IconButton(
               onPressed: () {
                 if (state is FavoriteFavorState) {
-                  context.read<FavoriteBloc>().add(FavoriteUnfavorEvent());
+                  context.read<FavoriteBloc>().add(FavoriteUnfavorEvent(
+                        article: article,
+                      ));
                 } else {
-                  context.read<FavoriteBloc>().add(FavoriteFavorEvent());
+                  context.read<FavoriteBloc>().add(FavoriteFavorEvent(
+                        article: article,
+                      ));
                 }
               },
               icon: state is FavoriteFavorState

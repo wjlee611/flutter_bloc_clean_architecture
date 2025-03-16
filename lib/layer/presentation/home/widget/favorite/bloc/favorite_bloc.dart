@@ -8,13 +8,13 @@ import 'package:flutter_bloc_clean_architecture/util/app_snackbar.dart';
 part 'favorite_event.dart';
 
 class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
-  Article _article;
+  final String _slug;
   final ToggleFavorite _toggleFavorite;
 
   FavoriteBloc({
     required Article article,
     required ToggleFavorite toggleFavorite,
-  })  : _article = article,
+  })  : _slug = article.slug,
         _toggleFavorite = toggleFavorite,
         super(article.favorited
             ? FavoriteFavorState(status: ELoadingStatus.init)
@@ -33,12 +33,11 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
     await emit.forEach(
       _toggleFavorite.stream,
       onData: (data) {
-        if (data.code >= 300 && data.data?.slug == _article.slug) {
+        if (data.code >= 300 && data.data?.slug == _slug) {
           appSnackbar(message: data.message ?? 'Unknown error');
         }
-        if (data.data == null || data.data?.slug != _article.slug) return state;
-        _article = data.data!;
-        if (_article.favorited == true) {
+        if (data.data == null || data.data?.slug != _slug) return state;
+        if (data.data!.favorited == true) {
           return FavoriteFavorState(
             status: data.code == 299 ? state.status : ELoadingStatus.loaded,
           );
@@ -57,7 +56,7 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   ) async {
     if (state.status == ELoadingStatus.loading) return;
     emit(FavoriteUnfavorState(status: ELoadingStatus.loading));
-    _toggleFavorite.call(article: _article, toFavorite: true);
+    _toggleFavorite.call(article: event.article, toFavorite: true);
   }
 
   Future<void> _favoriteUnfavorEventHandler(
@@ -66,6 +65,6 @@ class FavoriteBloc extends Bloc<FavoriteEvent, FavoriteState> {
   ) async {
     if (state.status == ELoadingStatus.loading) return;
     emit(FavoriteFavorState(status: ELoadingStatus.loading));
-    _toggleFavorite.call(article: _article, toFavorite: false);
+    _toggleFavorite.call(article: event.article, toFavorite: false);
   }
 }

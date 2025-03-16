@@ -68,7 +68,7 @@ void main() {
         article: article1,
       ),
       act: (bloc) {
-        bloc.add(FavoriteFavorEvent());
+        bloc.add(FavoriteFavorEvent(article: article1));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -85,9 +85,9 @@ void main() {
         article: article1,
       ),
       act: (bloc) {
-        bloc.add(FavoriteFavorEvent());
-        bloc.add(FavoriteFavorEvent());
-        bloc.add(FavoriteFavorEvent());
+        bloc.add(FavoriteFavorEvent(article: article1));
+        bloc.add(FavoriteFavorEvent(article: article1));
+        bloc.add(FavoriteFavorEvent(article: article1));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -104,7 +104,7 @@ void main() {
         article: article2,
       ),
       act: (bloc) {
-        bloc.add(FavoriteUnfavorEvent());
+        bloc.add(FavoriteUnfavorEvent(article: article2));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -121,9 +121,9 @@ void main() {
         article: article2,
       ),
       act: (bloc) {
-        bloc.add(FavoriteUnfavorEvent());
-        bloc.add(FavoriteUnfavorEvent());
-        bloc.add(FavoriteUnfavorEvent());
+        bloc.add(FavoriteUnfavorEvent(article: article2));
+        bloc.add(FavoriteUnfavorEvent(article: article2));
+        bloc.add(FavoriteUnfavorEvent(article: article2));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -140,13 +140,13 @@ void main() {
         article: article1,
       ),
       act: (bloc) async {
-        bloc.add(FavoriteFavorEvent());
-        bloc.add(FavoriteFavorEvent());
-        bloc.add(FavoriteFavorEvent());
+        bloc.add(FavoriteFavorEvent(article: article1));
+        bloc.add(FavoriteFavorEvent(article: article1));
+        bloc.add(FavoriteFavorEvent(article: article1));
         await Future.delayed(Duration(milliseconds: 50));
-        bloc.add(FavoriteUnfavorEvent());
-        bloc.add(FavoriteUnfavorEvent());
-        bloc.add(FavoriteUnfavorEvent());
+        bloc.add(FavoriteUnfavorEvent(article: article1));
+        bloc.add(FavoriteUnfavorEvent(article: article1));
+        bloc.add(FavoriteUnfavorEvent(article: article1));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -176,7 +176,7 @@ void main() {
         article: article1,
       ),
       act: (bloc) {
-        bloc.add(FavoriteFavorEvent());
+        bloc.add(FavoriteFavorEvent(article: article1));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -193,9 +193,9 @@ void main() {
         article: article1,
       ),
       act: (bloc) {
-        bloc.add(FavoriteFavorEvent());
-        bloc.add(FavoriteFavorEvent());
-        bloc.add(FavoriteFavorEvent());
+        bloc.add(FavoriteFavorEvent(article: article1));
+        bloc.add(FavoriteFavorEvent(article: article1));
+        bloc.add(FavoriteFavorEvent(article: article1));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -212,7 +212,7 @@ void main() {
         article: article2,
       ),
       act: (bloc) {
-        bloc.add(FavoriteUnfavorEvent());
+        bloc.add(FavoriteUnfavorEvent(article: article2));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [
@@ -229,9 +229,9 @@ void main() {
         article: article2,
       ),
       act: (bloc) {
-        bloc.add(FavoriteUnfavorEvent());
-        bloc.add(FavoriteUnfavorEvent());
-        bloc.add(FavoriteUnfavorEvent());
+        bloc.add(FavoriteUnfavorEvent(article: article2));
+        bloc.add(FavoriteUnfavorEvent(article: article2));
+        bloc.add(FavoriteUnfavorEvent(article: article2));
       },
       wait: const Duration(milliseconds: 50),
       expect: () => [

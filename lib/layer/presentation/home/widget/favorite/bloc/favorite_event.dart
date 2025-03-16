@@ -4,6 +4,14 @@ abstract class FavoriteEvent {}
 
 class FavoriteInitStreamEvent extends FavoriteEvent {}
 
-class FavoriteFavorEvent extends FavoriteEvent {}
+class FavoriteFavorEvent extends FavoriteEvent {
+  final Article article;
 
-class FavoriteUnfavorEvent extends FavoriteEvent {}
+  FavoriteFavorEvent({required this.article});
+}
+
+class FavoriteUnfavorEvent extends FavoriteEvent {
+  final Article article;
+
+  FavoriteUnfavorEvent({required this.article});
+}
