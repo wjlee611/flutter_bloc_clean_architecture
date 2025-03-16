@@ -1,12 +1,14 @@
 # Flutter Bloc Clean Architecture
 
+![Architecture Diagram](https://github.com/user-attachments/assets/b4b4437e-ffd4-4232-96fd-a4d5e8ebe677)
+
 > It's just one form of clean architecture among many, and it's meant to illustrate the architecture I've implemented, not to impose a correct answer.
 >
 > Feedback is always welcome.
 
 This is the source code for a series of articles(coming soon) on [Medium (EN)]() and [my personal blog (KO)]() analyzing Flutter's clean architecture with [Bloc](https://bloclibrary.dev/).
 
-For context on why I implemented this way, see the article above.
+For context on why I implemented this way, please take a look at the article above.
 
 Similar to the [architecture guideline](https://docs.flutter.dev/app-architecture/guide) recently published by the Flutter team, and includes the following features:
 
@@ -14,7 +16,7 @@ Similar to the [architecture guideline](https://docs.flutter.dev/app-architectur
 - Advanced cross-bloc state sharing
 - Build environments separation
 - API endpoints codegen
-- Unit, Widget test and auto testing using github action (ci)
+- Unit, Widget test, and auto testing using GitHub Action (ci)
 - Multi-device integration e2e test and take screenshots
 
 As an example, I've implemented part of [Realworld project](https://realworld-docs.netlify.app/).
@@ -184,6 +186,8 @@ Please compress the secret and upload it to Github Secret.
 zip -r secrets.zip lib/core/constant/networks.dart
 base64 -i secrets.zip > secrets_base64.txt
 ```
+
+![Github Secret](https://github.com/user-attachments/assets/b97e56c6-28e4-4e6a-aa71-297f7cb08356)
 
 ## Folder structure
 
