@@ -27,7 +27,7 @@ void main() async {
   for (var device in TestingDevice.values) {
     if (!isAllTestPassed) break;
 
-    await Future.delayed(Duration(seconds: 1)); // Magic number...
+    await Future.delayed(Duration(seconds: 2)); // Magic number...
     _printWithTime('Running test on ${device.deviceName}');
     switch (device.deviceType) {
       case DeviceType.android:
@@ -41,6 +41,7 @@ void main() async {
               (log) => log.contains('Boot completed'),
               orElse: () => throw Exception('Boot completed log not found'),
             );
+        await Future.delayed(Duration(seconds: 2)); // Magic number...
         // Integration test
         final testProcess = await _runIntegrationTest(device.deviceName);
         if (testProcess.exitCode != 0) {
@@ -56,6 +57,7 @@ void main() async {
           'xcrun',
           ['simctl', 'boot', device.deviceKey],
         );
+        await Future.delayed(Duration(seconds: 2)); // Magic number...
         // Integration test
         final testProcess = await _runIntegrationTest(device.deviceName);
         if (testProcess.exitCode != 0) {

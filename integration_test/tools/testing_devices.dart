@@ -1,101 +1,91 @@
 enum TestingDevice {
-  // 98.8% of all android os
-  // api23Pixel5(
-  //   deviceType: DeviceType.android,
-  //   deviceName: 'Pixel_5_API_23',
-  //   deviceKey: 'API_23_Pixel_5',
-  // ), // No Boot completed log
-  // api24Pixel5(
-  //   deviceType: DeviceType.android,
-  //   deviceName: 'Pixel_5_API_24',
-  //   deviceKey: 'API_24_Pixel_5',
-  // ), // No Boot completed log
-  api26Pixel5(
-    deviceType: DeviceType.android,
-    deviceName: 'Pixel_5_API_26',
-    deviceKey: 'API_26_Pixel_5',
-  ),
-  api28Pixel1(
+  api26Pixel1(
     deviceType: DeviceType.android,
     deviceName: 'Pixel_1',
-    deviceKey: 'API_28_Pixel_1',
+    deviceKey: 'Pixel_1_API_26',
   ),
-  api29Pixel2(
+  api28Pixel2(
     deviceType: DeviceType.android,
     deviceName: 'Pixel_2',
-    deviceKey: 'API_29_Pixel_2',
+    deviceKey: 'Pixel_2_API_28',
   ),
-  api30Pixel3(
+  api29Pixel3(
     deviceType: DeviceType.android,
     deviceName: 'Pixel_3',
-    deviceKey: 'API_30_Pixel_3',
+    deviceKey: 'Pixel_3_API_29',
   ),
-  api31Pixel4(
+  api30Pixel4(
     deviceType: DeviceType.android,
     deviceName: 'Pixel_4',
-    deviceKey: 'API_31_Pixel_4',
+    deviceKey: 'Pixel_4_API_30',
   ),
-  api33Pixel5(
+  api31Pixel5(
     deviceType: DeviceType.android,
     deviceName: 'Pixel_5',
-    deviceKey: 'API_33_Pixel_5',
+    deviceKey: 'Pixel_5_API_31',
   ),
-  api34Pixel6(
+  api32Pixel6(
     deviceType: DeviceType.android,
     deviceName: 'Pixel_6',
-    deviceKey: 'API_34_Pixel_6',
+    deviceKey: 'Pixel_6_API_32',
   ),
-  api35Pixel8a(
+  api33Pixel7(
     deviceType: DeviceType.android,
-    deviceName: 'Pixel_8a',
-    deviceKey: 'API_35_Pixel_8a',
+    deviceName: 'Pixel_7',
+    deviceKey: 'Pixel_7_API_33',
   ),
+  api34Pixel8(
+    deviceType: DeviceType.android,
+    deviceName: 'Pixel_8',
+    deviceKey: 'Pixel_8_API_34',
+  ),
+  api35Pixel9(
+    deviceType: DeviceType.android,
+    deviceName: 'Pixel_9',
+    deviceKey: 'Pixel_9_API_35',
+  ),
+  // BUG?: The root isolate is taking an unusually long time to start.
+  // api36Pixel9(
+  //   deviceType: DeviceType.android,
+  //   deviceName: 'Pixel_9_API_36',
+  //   deviceKey: 'Pixel_9_API_36',
+  // ),
 
   // ~96% of all ios
-  ios15_13SE3(
+  ios150_13SE2(
     deviceType: DeviceType.ios,
-    deviceName: 'iPhone_SE3',
-    deviceKey: '43EF3ADB-D981-4ABE-932F-44BE459E4F0A',
+    deviceName: 'iPhone_SE2',
+    deviceKey: 'C074A53A-9CD5-4EA1-84D5-04CA8CD6D500',
   ),
-  ios15_13Mini(
-    deviceType: DeviceType.ios,
-    deviceName: 'iPhone_13_Mini',
-    deviceKey: 'AE6A76A1-868B-4A20-AC80-07ED4739E026',
-  ),
-  ios15_13(
+  ios150_13(
     deviceType: DeviceType.ios,
     deviceName: 'iPhone_13',
-    deviceKey: '429FEEB7-81D0-4CCB-A781-43C336EB23AC',
+    deviceKey: '152FE30B-8240-4FBA-857C-B629183EACC5',
   ),
-  ios16_14(
+  ios155_13SE3(
+    deviceType: DeviceType.ios,
+    deviceName: 'iPhone_SE3',
+    deviceKey: '09E0D13C-05C3-49B2-B440-E0617786AF4F',
+  ),
+  ios160_14(
     deviceType: DeviceType.ios,
     deviceName: 'iPhone_14',
-    deviceKey: '5DB923A6-2379-49CA-A582-2BE2B2A98EEF',
+    deviceKey: '6E90F4B1-23C1-4116-BEC5-C66C73EAF4C7',
   ),
-  ios16_14Plus(
+  ios164_14Plus(
     deviceType: DeviceType.ios,
     deviceName: 'iPhone_14_Plus',
-    deviceKey: '1D647AAB-82C4-47BE-BC35-4FE46A12116A',
+    deviceKey: '15B0E2C1-6F54-4B88-80DE-BC372F8530FD',
   ),
-  ios17_15(
+  ios170_15(
     deviceType: DeviceType.ios,
     deviceName: 'iPhone_15',
-    deviceKey: 'B750403F-F332-45D4-A44C-848B7CD3B8E9',
+    deviceKey: '9E102BD9-5C84-4A70-871C-52D4337C654C',
   ),
-  ios17_15Pro(
+  ios175_15Pro(
     deviceType: DeviceType.ios,
     deviceName: 'iPhone_15_Pro',
-    deviceKey: '1D287230-B3A6-4B70-A55B-BD13BB8C2FD2',
-  ),
-  ios18_16(
-    deviceType: DeviceType.ios,
-    deviceName: 'iPhone_16',
-    deviceKey: 'F4A78356-4369-4B7D-804B-F13546053733',
-  ),
-  ios18_16ProMax(
-    deviceType: DeviceType.ios,
-    deviceName: 'iPhone_16_Pro_Max',
-    deviceKey: '2441E581-F3DA-412D-BD80-BB3D4F787897',
+    deviceKey: 'F37640E7-D87A-4599-8339-6A512DEB5CD9',
   );
 
   final DeviceType deviceType;
