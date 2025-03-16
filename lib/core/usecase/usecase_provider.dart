@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc_clean_architecture/core/usecase/base_stream_usecase.dart';
 import 'package:provider/provider.dart';
 
-/// [RepositoryProvider]와 사용법이 동일한 [UsecaseProvider].
+/// [UsecaseProvider], which has the same usage as [RepositoryProvider].
 ///
-/// 단, 위젯 트리에서 제거되면 반드시 [BaseStreamUsecase]의 `dispose`를 호출합니다.
+/// However, it must call `dispose` of [BaseStreamUsecase] when it is removed
+/// from the widget tree.
 class UsecaseProvider<T extends BaseStreamUsecase> extends Provider<T> {
   UsecaseProvider({
     required super.create,
@@ -44,7 +45,7 @@ class UsecaseProvider<T extends BaseStreamUsecase> extends Provider<T> {
   }
 }
 
-/// [MultiRepositoryProvider]와 사용법이 동일한 [MultiUsecaseProvider].
+/// [MultiUsecaseProvider], which has the same usage as [MultiRepositoryProvider].
 class MultiUsecaseProvider extends MultiProvider {
   MultiUsecaseProvider({
     required super.providers,

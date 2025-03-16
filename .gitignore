@@ -60,3 +60,6 @@ lib/core/constant/networks.dart
 
 # Screenshots
 screenshots/
+
+# Code coverage
+coverage/html/

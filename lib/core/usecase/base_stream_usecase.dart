@@ -2,15 +2,18 @@ import 'dart:async';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-/// [Bloc]간 상태 동기화를 Domain Layer에서 처리하기 위한 [BaseStreamUsecase] mixin class.
+/// [BaseStreamUsecase] mixin class for handling state synchronization
+/// between [Bloc]s at the Domain Layer.
 ///
-/// 모든 Usecase에 반드시 상속해야 할 필요는 없지만, 상태를 공유할 필요가 있는 Bloc에서 사용할 Usecase에 상속하여 사용합니다.
+/// You don't necessarily need to inherit from all Usecases, but inherit
+/// from the Usecases that will be used by Blocs that need to share state.
 ///
-/// ### 사용방법
+/// ### How to use?
 ///
 /// ---
 ///
-/// 1. 상속받은 Usecase의 `call` 메서드는 데이터를 반환하지 않고, [yieldData] 메서드를 호출합니다.
+/// 1. The `call` method of the inherited Usecase does not return data,
+///   it calls the [yieldData] method.
 ///
 ///    _Example_
 ///    ```dart
@@ -24,12 +27,12 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 ///    }
 ///    ```
 ///
-///    필요에 따라 리턴값을 반환해도 되지만, Usecase의 call을 호출한 bloc에서 2번 스탭 진행 시 \
-///    데이터가 중복으로 수신될 수 있습니다.
+///    You can return the return value as needed, but you may receive duplicate
+///    data when the bloc that called Usecase's call proceeds to step 2.
 ///
 /// ---
 ///
-/// 2. yieldData로 넘긴 데이터는 [stream]을 통해 Bloc에서 받을 수 있습니다.
+/// 2. The data passed to yieldData can be received by Bloc via [stream].
 ///
 ///    {@template bloc_usage}
 ///    _Example_
@@ -45,24 +48,26 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 ///    }
 ///    ```
 ///
-///    Bloc에서 `_exUseCase.call()` 을 호출하면 해당 BlocEvent는 종료되는 대신, \
-///    InitStreamEvent를 통해 연결된 `_exUseCase.stream`을 통해 데이터를 받을 수 있습니다.
+///    When you call `_exUseCase.call()` on a Bloc, its BlocEvent exits,
+///    but it can receive data through the `_exUseCase.stream` connected
+///    via the InitStreamEvent.
 ///
-///    상태 동기화가 필요한 다른 Bloc에서도 동일한 방법으로 사용 시 stream을 통해 데이터를 동기화 할 수 있습니다.
+///    Other Blocs that require state synchronization can synchronize data
+///    over stream when used in the same way.
 ///    {@endtemplate}
 ///
 /// ---
 ///
-/// 3. [BaseStreamUsecase]를 상속받은 Usecase는 반드시 사용하는 Bloc의 위젯트리 상단에서 \
-///    [UsecaseProvider]를 통해 제공되어야 합니다.
+/// 3. Usecases that inherit from [BaseStreamUsecase] must be provided
+///   via [UsecaseProvider] at the top of the widget tree of the Bloc you use.
 ///
-///    이는 Flutter 상명주기에 따라 stream을 컨트롤하기 위함입니다.
+///    This is to control the stream according to the Flutter lifecycle.
 ///
 ///    {@template usecase_provider_usage}
-///    [UsecaseProvider] 내부에서 dispose를 호출하기 때문에 별도로 dispose를 호출하지 마세요.
+///    Don't call dispose separately because it is called inside [UsecaseProvider].
 ///    {@endtemplate}
 ///
-///    자세한 내용은 [UsecaseProvider] 참조 바랍니다.
+///    For more information, see [UsecaseProvider].
 mixin class BaseStreamUsecase<R> {
   final _streamController = StreamController<R>.broadcast();
 
