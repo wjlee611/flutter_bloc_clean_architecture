@@ -35,6 +35,7 @@ void main() {
     );
 
     await homePageTest(widgetTester);
+    await homePageSignoutTest(widgetTester);
   });
 }
 
@@ -82,11 +83,14 @@ Future<void> homePageTest(WidgetTester widgetTester) async {
 
   await widgetTester.tap(find.byType(FavoriteButton));
   await widgetTester.pump(Duration(seconds: 1));
-  await widgetTester.tap(find.bySemanticsLabel('Back'));
+  await widgetTester.tap(find.backButton());
   await widgetTester.pumpAndSettle();
   expect(slug59Unfavor, findsWidgets);
+}
 
+Future<void> homePageSignoutTest(WidgetTester widgetTester) async {
   final signoutButton = find.byKey(Key('signout-button'));
+
   await widgetTester.tap(signoutButton);
   await widgetTester.pumpAndSettle();
   expect(find.text('Sign in'), findsWidgets);

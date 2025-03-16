@@ -41,7 +41,9 @@ Future<void> signinPageTest(WidgetTester widgetTester) async {
   await widgetTester.pump(Duration(seconds: 2));
 
   await widgetTester.enterText(emailFieldFinder, 'tester@test.com');
-  await widgetTester.pumpAndSettle();
+  FocusManager.instance.primaryFocus?.unfocus();
+  await widgetTester
+      .pumpAndSettle(Duration(seconds: 1)); // Wait for dismiss keyboard
 
   await widgetTester.tap(signinButtonFinder);
   await widgetTester.pumpAndSettle();
@@ -50,13 +52,14 @@ Future<void> signinPageTest(WidgetTester widgetTester) async {
   await widgetTester.pump(Duration(seconds: 2));
 
   await widgetTester.enterText(passwordFieldFinder, 'password');
-  await widgetTester.pumpAndSettle();
+  FocusManager.instance.primaryFocus?.unfocus();
+  await widgetTester.pumpAndSettle(Duration(seconds: 1));
 
   await widgetTester.tap(createAccountFinder);
   await widgetTester.pumpAndSettle();
   expect(find.text("Sign up"), findsWidgets);
 
-  await widgetTester.tap(find.bySemanticsLabel('Back'));
+  await widgetTester.tap(find.backButton());
   await widgetTester.pumpAndSettle();
   expect(find.text("Sign in"), findsWidgets);
 

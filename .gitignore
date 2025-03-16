@@ -57,3 +57,6 @@ secrets_base64.txt
 
 # Secrets
 lib/core/constant/networks.dart
+
+# Screenshots
+screenshots/

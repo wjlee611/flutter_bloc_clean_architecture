@@ -24,22 +24,22 @@ class App extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider<UserRepository>(
-          create: (context) => F.appFlavor == Flavor.dev
-              ? UserRepositoryMockImpl(
+          create: (context) => F.appFlavor == Flavor.prod
+              ? UserRepositoryImpl(
                   secureStorage: SecureStorageImpl(
                     storage: FlutterSecureStorage(),
                   ),
                 )
-              : UserRepositoryImpl(
+              : UserRepositoryMockImpl(
                   secureStorage: SecureStorageImpl(
                     storage: FlutterSecureStorage(),
                   ),
                 ),
         ),
         RepositoryProvider<ArticleRepository>(
-          create: (context) => F.appFlavor == Flavor.dev
-              ? ArticleRepositoryMockImpl()
-              : ArticleRepositoryImpl(),
+          create: (context) => F.appFlavor == Flavor.prod
+              ? ArticleRepositoryImpl()
+              : ArticleRepositoryMockImpl(),
         ),
       ],
       child: MultiUsecaseProvider(

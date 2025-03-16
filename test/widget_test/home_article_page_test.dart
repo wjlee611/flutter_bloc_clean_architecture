@@ -35,15 +35,21 @@ void main() {
     );
 
     await homeArticlePageTest(widgetTester);
+    await homeArticlePagePopTest(widgetTester);
   });
 }
 
-Future<void> homeArticlePageTest(WidgetTester widgetTester) async {
+Future<void> homeArticlePageTest(
+  WidgetTester widgetTester, {
+  bool hasInitialData = false,
+}) async {
   final slug1Favor = find.byKey(Key('1-slug-favor'));
   final slug1Unfavor = find.byKey(Key('1-slug-unfavor'));
 
   expect(find.text('Article'), findsOneWidget);
-  expect(find.byType(FavoriteButton), findsNothing);
+  if (!hasInitialData) {
+    expect(find.byType(FavoriteButton), findsNothing);
+  }
 
   await widgetTester.pump(Duration(seconds: 1)); // loading hydration
   expect(find.text('Article - hydrated'), findsWidgets);
@@ -55,8 +61,10 @@ Future<void> homeArticlePageTest(WidgetTester widgetTester) async {
   await widgetTester.tap(find.byType(FavoriteButton));
   await widgetTester.pump(Duration(seconds: 1));
   expect(slug1Favor, findsOneWidget);
+}
 
-  await widgetTester.tap(find.bySemanticsLabel('Back'));
+Future<void> homeArticlePagePopTest(WidgetTester widgetTester) async {
+  await widgetTester.tap(find.backButton());
   await widgetTester.pump(Duration(seconds: 1));
   expect(find.text('Home'), findsWidgets);
 }

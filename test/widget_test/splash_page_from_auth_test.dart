@@ -1,4 +1,3 @@
-import 'package:flutter_bloc_clean_architecture/core/router/app_router.dart';
 import 'package:flutter_bloc_clean_architecture/flavors.dart';
 import 'package:flutter_bloc_clean_architecture/layer/data/source/local/secure_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,9 +15,7 @@ void main() {
   });
 
   testWidgets('Splash Page From Auth', (widgetTester) async {
-    await widgetTester.pumpWidgetWithGoRouter(
-      initialTestRoute: AppRouter.root,
-    );
+    await widgetTester.pumpWidgetWithGoRouter();
 
     await splashFromAuthPageTest(widgetTester);
   });

@@ -1,4 +1,3 @@
-import 'package:flutter_bloc_clean_architecture/core/router/app_router.dart';
 import 'package:flutter_bloc_clean_architecture/flavors.dart';
 import 'package:flutter_bloc_clean_architecture/layer/data/source/local/secure_storage.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -16,17 +15,20 @@ void main() {
   });
 
   testWidgets('Splash Page From UnAuth', (widgetTester) async {
-    await widgetTester.pumpWidgetWithGoRouter(
-      initialTestRoute: AppRouter.root,
-    );
+    await widgetTester.pumpWidgetWithGoRouter();
 
     await splashFromUnAuthPageTest(widgetTester);
   });
 }
 
-Future<void> splashFromUnAuthPageTest(WidgetTester widgetTester) async {
-  expect(find.text("Initializing..."), findsOneWidget);
-  await widgetTester.pump();
+Future<void> splashFromUnAuthPageTest(
+  WidgetTester widgetTester, {
+  bool isE2E = false,
+}) async {
+  if (!isE2E) {
+    expect(find.text("Initializing..."), findsOneWidget);
+    await widgetTester.pump();
+  }
   expect(find.text("Getting user info..."), findsOneWidget);
   await widgetTester.pumpAndSettle();
 
