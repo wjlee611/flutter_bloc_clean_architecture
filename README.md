@@ -6,7 +6,7 @@
 >
 > Feedback is always welcome.
 
-This is the source code for a series of articles(coming soon) on [Medium (EN)]() and [my personal blog (KO)]() analyzing Flutter's clean architecture with [Bloc](https://bloclibrary.dev/).
+This is the source code for a series of articles(coming soon) on [Medium (EN)](https://medium.com/@wjlee611/fcab-00-flutter-clean-architecture-with-bloc-analysis-part-00-2b6f0e65992d) and [my personal blog (KO)](https://wjlee611.github.io/blog) analyzing Flutter's clean architecture with [Bloc](https://bloclibrary.dev/).
 
 For context on why I implemented this way, please take a look at the article above.
 
