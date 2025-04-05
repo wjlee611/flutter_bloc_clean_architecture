@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_clean_architecture/core/app_di.dart';
 import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_bloc_singleton.dart';
 import 'package:flutter_bloc_clean_architecture/core/auth/bloc/auth_state.dart';
 import 'package:flutter_bloc_clean_architecture/core/router/page_transition.dart';
-import 'package:flutter_bloc_clean_architecture/layer/domain/repository/article_repository.dart';
-import 'package:flutter_bloc_clean_architecture/layer/domain/repository/user_repository.dart';
 import 'package:flutter_bloc_clean_architecture/layer/domain/usecase/toggle_favorite.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/article/%5Bslug%5D/article_page.dart';
 import 'package:flutter_bloc_clean_architecture/layer/presentation/home/article/%5Bslug%5D/bloc/article_bloc.dart';
@@ -99,7 +98,7 @@ class AppRouter {
             state: state,
             child: BlocProvider(
               create: (context) => SplashBloc(
-                userRepository: context.read<UserRepository>(),
+                userRepository: AppDI.instance.userRepository,
               ),
               child: const SplashPage(),
             ),
@@ -111,7 +110,7 @@ class AppRouter {
             state: state,
             child: BlocProvider(
               create: (context) => SigninBloc(
-                userRepository: context.read<UserRepository>(),
+                userRepository: AppDI.instance.userRepository,
               ),
               child: SigninPage(),
             ),
@@ -123,7 +122,7 @@ class AppRouter {
             state: state,
             child: BlocProvider(
               create: (context) => SignupBloc(
-                userRepository: context.read<UserRepository>(),
+                userRepository: AppDI.instance.userRepository,
               ),
               child: SignupPage(),
             ),
@@ -135,7 +134,7 @@ class AppRouter {
             state: state,
             child: BlocProvider(
               create: (context) => HomeBloc(
-                articleRepository: context.read<ArticleRepository>(),
+                articleRepository: AppDI.instance.articleRepository,
                 toggleFavorite: context.read<ToggleFavorite>(),
               ),
               child: HomePage(),
@@ -150,7 +149,7 @@ class AppRouter {
                 child: BlocProvider(
                   create: (context) => ArticleBloc(
                     slug: state.pathParameters['slug']!,
-                    articleRepository: context.read<ArticleRepository>(),
+                    articleRepository: AppDI.instance.articleRepository,
                     toggleFavorite: context.read<ToggleFavorite>(),
                     article: state.extra as Article?,
                   ),
