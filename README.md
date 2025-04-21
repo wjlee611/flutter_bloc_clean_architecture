@@ -1,5 +1,18 @@
 # Flutter Bloc Clean Architecture
 
+> ### Read me first!
+>
+> I ignored the `lib/core/constant/networks.dart` file because it's not a server I implemented myself.
+> Instead, insert the code below into the path above for smooth code execution, and it will work in dev builds:
+>
+> ```dart
+> class Networks {
+>   static const String devBaseUrl = 'dev.yourserver/api';
+>   static const String qaBaseUrl = 'qa.yourserver/api';
+>   static const String baseUrl = 'yourserver/api';
+> }
+> ```
+
 ![Architecture Diagram](https://github.com/user-attachments/assets/b4b4437e-ffd4-4232-96fd-a4d5e8ebe677)
 
 > It's just one form of clean architecture among many, and it's meant to illustrate the architecture I've implemented, not to impose a correct answer.
